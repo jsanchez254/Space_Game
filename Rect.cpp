@@ -1,7 +1,11 @@
 #include "Rect.h"
 
+#include <iostream>
+
+using namespace std;
+
 Rect::Rect(float x, float y, float w, float h, float r, float g, float b): x(x), y(y), w(w), h(h), r(r), g(g), b(b){
-    
+    cout<<"I was called"<<endl;
 }
 
 float Rect::getX() const {
@@ -65,7 +69,7 @@ bool Rect::contains(float px, float py) const {
 }
 
 void Rect::draw() const {
-    glColor3f(r, g, b);
+    glColor3f(1, 1, 1);
     
     glBegin(GL_POLYGON);
     
@@ -75,6 +79,9 @@ void Rect::draw() const {
     glVertex2f(x, y-h);
     
     glEnd();
+
+
+    
 }
 
 
