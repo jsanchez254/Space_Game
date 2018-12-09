@@ -69,7 +69,7 @@ bool Rect::contains(float px, float py) const {
 }
 
 void Rect::draw() const {
-    glColor3f(1, 1, 1);
+    glColor3f(r, g, b);
     
     glBegin(GL_POLYGON);
     

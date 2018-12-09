@@ -63,12 +63,12 @@ class player{
 class App: public GlutApp {
     //position of arwing
     public:
-
+    bool shoot = false;
     float y = 0.0f;
     AnimatedRect* explosion;
     AnimatedRect* fastExplosion;
     TexRect* background;
-    bullets *test = new bullets(); 
+    // bullets *test = new bullets(); 
     player * arwing = new player();
     
 public:

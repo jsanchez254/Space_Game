@@ -15,7 +15,12 @@ void App::draw() {
     explosion->draw(0.15);
     fastExplosion->draw(0.15);
     arwing->draw();
-    test->draw();
+    // test->draw();
+    if(shoot){
+        for(int i = 0; i < arwing->weapon.size(); i++){
+            arwing->weapon[i]->draw();
+        }
+    }
     background->draw(0.0);
 }
 
@@ -50,7 +55,12 @@ void App::keyDown(unsigned char key, float x, float y){
     /*-----------*/
     
     if (key == 32){
-        glutIdleFunc(test->upbullet);
+        arwing->weapon.push_back(new bullets(arwing->positionY1, arwing->positionY2, arwing->positionX1, arwing->positionX2));
+        shoot = true;
+        for(int i = 0; i < arwing->weapon.size(); i++){
+            glutIdleFunc(arwing->weapon[i]->upbullet);
+        }
+
     }
 
 

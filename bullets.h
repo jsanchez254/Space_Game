@@ -5,9 +5,19 @@ class bullets{
         static float positionY2;
         static float positionX1;
         static float positionX2;
-    bullets(){
-        y = 0.0f;
-    }
+
+    public: 
+        bullets(float positionY1x ,  float positionY2x , float positionX1x , float positionX2x ){
+            y = 0.0f;
+            positionY1 = positionY1x;
+            positionY2 = positionY2x;
+            positionX1 = positionX1x;
+            positionX2 = positionX2x;
+        }
+
+        bullets(){
+
+        }
 
     static void upbullet(){
         y += 0.03f;
@@ -28,8 +38,8 @@ class bullets{
     }
 };
 
-float bullets::y = 0.0f;
-float bullets::positionY1 = -0.6f;
-float bullets::positionY2 = -0.8f;
-float bullets::positionX1 = -0.1f;
-float bullets::positionX2 = 0.1f;
+// float bullets::y = 0.0f;
+// float bullets::positionY1;
+// float bullets::positionY2;
+// float bullets::positionX1;
+// float bullets::positionX2;
