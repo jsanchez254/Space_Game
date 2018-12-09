@@ -20,7 +20,7 @@ void App::draw() {
 }
 
 void App::keyDown(unsigned char key, float x, float y){
-
+    
     if (key == 27){
         exit(0);
     }
@@ -50,20 +50,7 @@ void App::keyDown(unsigned char key, float x, float y){
     /*-----------*/
     
     if (key == 32){
-        // fastExplosion->playOnce();
-        // explosion->playOnce();
-
-        // arwing->shoot = true;
-        // int i = 0;
-        // while(i < 50){
-        //     test->upbullet();
-        //     redraw();
-        //     i++;
-        //     cout<<"okay"<<endl;
-        // }
-        // y= 0.0f;
-        glutIdleFunc(NULL);
-        glutPostRedisplay();
+        glutIdleFunc(test->upbullet);
     }
 
 

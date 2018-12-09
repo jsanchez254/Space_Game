@@ -6,42 +6,41 @@
 #include "Rect.h"
 #include <iostream>
 #include "bullets.h"
+#include <vector>
 
 using namespace std;
 
 class player{
     public:
-        //position
-        float x = 0.0f;
-        float y = 0.0f;
+    
         bool shoot = false;
+        vector <bullets*> weapon;
+        float positionY1 = -0.6f;
+        float positionY2 = -0.8f;
+        float positionX1 = -0.1f;
+        float positionX2 = 0.1f;
 
         player(){
             cout<<"default me"<<endl;
         }
 
-        bool withinFrame(string action){
-            if((-0.1f + x) > -1.0f && ((0.1f + x + 0.03f) < 1.0f) && ((-0.6f + y) > -1.0f) && ((0.6f + y) < 1.0f)) {
-                return true;
-            }
-            else{
-                return false;
-            } 
-        }
-
         //POSITION
         void positionManage(string type){
             if(type == "UP"){
-                y += 0.03f;
+                positionY1 += 0.03f;
+                positionY2 += 0.03f;
             }
             else if(type == "RIGHT"){
-                x += 0.03f;
+                positionX1 += 0.03f;
+                positionX2 += 0.03f;
             }
             else if(type == "DOWN"){
-                y -= 0.03f;
+                positionY1 -= 0.03f;
+                positionY2 -= 0.03f;
             }
             else if(type == "LEFT"){
-                x -= 0.03f;
+                positionX1 -= 0.03f;
+                positionX2 -= 0.03f;
             }
         }
 
@@ -49,15 +48,12 @@ class player{
             glColor3f(1, 1, 0.2);
             glBegin(GL_POLYGON);
             
-            glVertex2f(-0.1f + x, -0.6f + y);
-            glVertex2f(0.1f + x, -0.6f+ y);
-            glVertex2f(0.1f + x, -0.8f+ y);
-            glVertex2f(-0.1f+ x, -0.8f + y);
-
-            cout<<"BOUNDS: "<<0.1f + x<<endl;
+            glVertex2f(positionX1, positionY1);
+            glVertex2f(positionX2, positionY1);
+            glVertex2f(positionX2, positionY2);
+            glVertex2f(positionX1, positionY2);
             
             glEnd();
-
 
         }
 
@@ -72,11 +68,9 @@ class App: public GlutApp {
     AnimatedRect* explosion;
     AnimatedRect* fastExplosion;
     TexRect* background;
+    bullets *test = new bullets(); 
     player * arwing = new player();
-    bullets * test = new bullets();
     
-    
-
 public:
     App(int argc, char** argv);
     
