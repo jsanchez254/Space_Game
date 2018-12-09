@@ -7,6 +7,7 @@
 #include <iostream>
 #include "bullets.h"
 #include <vector>
+#include "Enemy.h"
 
 using namespace std;
 
@@ -63,6 +64,7 @@ class player{
 class App: public GlutApp {
     //position of arwing
     public:
+    vector<Enemy*> shipList;
     bool shoot = false;
     float y = 0.0f;
     AnimatedRect* explosion;

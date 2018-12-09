@@ -29,17 +29,18 @@ class bullets{
         glColor3f(1, 0.6, 0.2);
         glBegin(GL_POLYGON);
         
-        glVertex2f(positionX1/2, positionY1/2 + y);
-        glVertex2f(positionX2/2, positionY1/2 + y);
-        glVertex2f(positionX2/2, positionY2/2 + y);
-        glVertex2f(positionX1/2, positionY2/2 + y);
+       
+        glVertex3f(positionX1/2, positionY1/2 + y, 0.15);
+        glVertex3f(positionX2/2, positionY1/2 + y, 0.15);
+        glVertex3f(positionX2/2, positionY2/2 + y, 0.15);
+        glVertex3f(positionX1/2, positionY2/2 + y, 0.15);
         
         glEnd();
     }
 };
 
-// float bullets::y = 0.0f;
-// float bullets::positionY1;
-// float bullets::positionY2;
-// float bullets::positionX1;
-// float bullets::positionX2;
+float bullets::y = 0.0f;
+float bullets::positionY1;
+float bullets::positionY2;
+float bullets::positionX1;
+float bullets::positionX2;
