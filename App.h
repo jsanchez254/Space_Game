@@ -71,6 +71,7 @@ class App: public GlutApp {
     float y = 0.0f;
     AnimatedRect* explosion;
     AnimatedRect* fastExplosion;
+    TexRect* background;
     player * arwing = new player();
     bullets * test = new bullets();
     
