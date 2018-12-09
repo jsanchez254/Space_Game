@@ -6,6 +6,7 @@ using namespace std;
 App::App(int argc, char** argv): GlutApp(argc, argv){
     explosion = new AnimatedRect("fireball.bmp", 6, 6, 100, -0.5, 0.5, 0.5, 0.5);
     fastExplosion = new AnimatedRect("fireball.bmp", 6, 6, 10, 0.5, 0.5, 0.5, 0.5);
+    background = new TexRect("background.png,", -1.0, 1.0, 2.0, 2.0);
     
 
 }
@@ -15,6 +16,7 @@ void App::draw() {
     fastExplosion->draw(0.15);
     arwing->draw();
     test->draw();
+    background->draw(0.0);
 }
 
 void App::keyDown(unsigned char key, float x, float y){
@@ -72,4 +74,5 @@ App::~App(){
     std::cout << "Exiting..." << std::endl;
     // delete explosion;
     // delete fastExplosion;
+    delete background;
 }
