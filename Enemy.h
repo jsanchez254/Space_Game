@@ -78,6 +78,12 @@ public:
             glEnd();
         }
     }
+
+    void reset()
+    {
+        y = 1.5;
+        glutPostRedisplay();
+    }
     
 };
 
