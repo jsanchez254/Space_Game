@@ -30,8 +30,10 @@ class checkHit{
                             weapons[j]->shooting = false;
                             cout<<"TRUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"<<endl;
                             weapons.pop_back(); // Delete the first bullet on the back
+
+                            // Results in a segmentation fault: we need to resolve this issue!
                             // enemies.erase(enemies.begin()+i);
-                            // delete enemies[i];   // Seems unlikely this'll work; only deletes enemies[i]
+                            // delete enemies[i];
                             // cout << enemies[i] << " is hit!" << endl;   // Debug
                     }
                     cout<<"hello1"<<endl;
