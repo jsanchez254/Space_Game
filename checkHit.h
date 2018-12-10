@@ -7,10 +7,10 @@ using namespace std;
 
 class checkHit{
     public: 
-    checkHit(){}
+    checkHit(){}    // Default Constructor
 
     void ifHit(vector<bullets*> weapons, vector<Enemy*> enemies ){
-        if(weapons.empty()){
+        if(weapons.empty()){    // Safety to avoid segmentation fault
             cout<<"IT IS EMPTY"<<endl;
         }
         else{
@@ -29,7 +29,9 @@ class checkHit{
                     weapons[j]->positionX2, enemies[i]->x-0.05f, enemies[i]->x+0.05f, enemies[i]->y-0.02f )){
                             weapons[j]->shooting = false;
                             cout<<"TRUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"<<endl;
-                            weapons.pop_back();
+                            weapons.pop_back(); // Delete the first bullet on the back
+                            delete enemies[i];   // Seems unlikely this'll work; only deletes enemies[i]
+                            cout << enemies[i] << " is hit!" << endl;   // Debug
                     }
                     cout<<"hello1"<<endl;
                 }
