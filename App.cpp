@@ -85,14 +85,14 @@ App::~App(){
     std::cout << "Exiting..." << std::endl;
     // delete explosion;
     // delete fastExplosion;
-    for (int i = 0; i < game->shipList.size(); i++)
-    {
-        delete game->shipList[i];
-    }
+    // for (int i = 0; i < game->shipList.size(); i++)
+    // {
+    //     delete game->shipList[i];
+    // }
 
-    for(int i = 0; i < game->arwing->weapon.size(); i++){
-        delete game->arwing->weapon[i];
-    }
+    // for(int i = 0; i < game->arwing->weapon.size(); i++){
+    //     delete game->arwing->weapon[i];
+    // }
 
 
     delete background;

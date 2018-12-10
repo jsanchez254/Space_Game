@@ -21,20 +21,37 @@ class checkHit{
             //     cout<<"hello"<<endl;
             //     ii++;
             // }
-            int i = 0;
-            int j = 0;
-            for(i = 0; i < enemies.size(); i++){
-                for(j = 0; j < weapons.size(); j++){
-                    if(withinBounds(weapons[j]->positionY1, weapons[j]->positionX1, 
-                    weapons[j]->positionX2, enemies[i]->x-0.05f, enemies[i]->x+0.05f, enemies[i]->y-0.02f )){
-                            weapons[j]->shooting = false;
+            // int i = 0;
+            // int j = 0;
+            // for(i = 0; i < enemies.size(); i++){
+            //     for(j = 0; j < weapons.size(); j++){
+            //         if(withinBounds(weapons[j]->positionY1, weapons[j]->positionX1, 
+            //         weapons[j]->positionX2, enemies[i]->x-0.05f, enemies[i]->x+0.05f, enemies[i]->y-0.02f )){
+            //                 weapons[j]->shooting = false;
+            //                 cout<<"TRUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"<<endl;
+            //                 weapons.pop_back(); // Delete the first bullet on the back
+
+            //                 // Results in a segmentation fault: we need to resolve this issue!
+            //                 // enemies.erase(enemies.begin()+i);
+            //                 delete enemies[i];
+                          
+            //         }
+
+            vector<Enemy*>::iterator it;
+            vector<bullets*>::iterator it2;
+            for(it = enemies.begin(); it < enemies.end(); it++){
+                for(it2 = weapons.begin(); it2 < weapons.end(); it2++){
+                    if(withinBounds((*it2)->positionY1, (*it2)->positionX1, 
+                    (*it2)->positionX2, (*it)->x-0.05f, (*it)->x+0.05f, (*it)->y-0.02f )){
+                            (*it2)->shooting = false;
                             cout<<"TRUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"<<endl;
                             weapons.pop_back(); // Delete the first bullet on the back
 
                             // Results in a segmentation fault: we need to resolve this issue!
                             // enemies.erase(enemies.begin()+i);
-                            // delete enemies[i];
-                            // cout << enemies[i] << " is hit!" << endl;   // Debug
+                            (*it)->die = false;
+                            // delete *it;
+                          
                     }
                     cout<<"hello1"<<endl;
                 }

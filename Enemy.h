@@ -20,6 +20,7 @@ class Enemy: public Rect, public Timer {  // Use AnimatedRect to include picture
 public:
     float y;
     float x;
+    bool die = true;
 
     // Default Constructor
     Enemy(): x(0.0f), z(1.0f) {
@@ -44,7 +45,7 @@ public:
    
    void action()
    {
-        if (y > -0.6f)
+        if (y > -0.6f && die)
         {
             y -= 0.001f;
             glutPostRedisplay();
@@ -58,7 +59,7 @@ public:
 
     void draw() const {
 
-        if (movingDown)
+        if (movingDown && die)
         {
             glColor3d(1.0f, 1.0f, 1.0f);
 
