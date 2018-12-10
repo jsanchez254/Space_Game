@@ -17,9 +17,9 @@ class Timer {
     int interval;
     bool running;
     std::thread timerThread;
-    
     static void repeat(Timer*);
 public:
+
     Timer();
     
     void start();

@@ -6,18 +6,20 @@
 #include "AnimatedRect.h"
 #include <math.h>
 #include <vector>
+#include "Timer.h"
 
 using namespace std;
 
-class Enemy: public Rect {  // Use AnimatedRect to include pictures
+class Enemy: public Rect, public Timer {  // Use AnimatedRect to include pictures
 
-    float x;
+ 
     float z;
 
     bool movingDown;
     
 public:
-    static float y;
+    float y;
+    float x;
 
     // Default Constructor
     Enemy(): x(0.0f), z(1.0f) {
@@ -30,19 +32,28 @@ public:
         this->movingDown = true;
     }
 
+    ~Enemy(){
+        
+    }
+
+
     bool getMoveDown()
     {
         return this->movingDown;
     }
    
-   static void moveDown()
+   void action()
    {
-        if (y > -1.1f)
+        if (y > -0.6f)
         {
             y -= 0.001f;
+            glutPostRedisplay();
         }
 
-        glutPostRedisplay();
+        else{
+            stop();
+        }
+
    }
 
     void draw() const {
@@ -61,6 +72,6 @@ public:
     
 };
 
-float Enemy::y = 1.5f;
+// float Enemy::y = 1.5f;
 
 #endif

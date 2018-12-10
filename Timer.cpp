@@ -1,6 +1,9 @@
 #include "Timer.h"
 
+using namespace std;
+
 void Timer::repeat(Timer* self){
+    // cout<<self->interval<<endl;
     if (self->running){
         int delay = self->interval;
         self->action();
@@ -11,7 +14,7 @@ void Timer::repeat(Timer* self){
 
 Timer::Timer() {
     interval = 1000;
-    running = false;
+    running = false; 
     
 }
 
@@ -21,6 +24,7 @@ Timer::~Timer(){
 
 void Timer::stop(){
     running = false;
+    cout<<"stop"<<endl;
 }
 
 void Timer::setRate(int mills){
