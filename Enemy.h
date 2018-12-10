@@ -58,16 +58,25 @@ public:
 
     void draw() const {
 
-        glColor3d(1.0f, 1.0f, 1.0f);
+        if (movingDown)
+        {
+            glColor3d(1.0f, 1.0f, 1.0f);
 
-        glBegin(GL_POLYGON);
+            glBegin(GL_POLYGON);
 
-        glVertex2f(x-0.05f, y);
-        glVertex2f(x+0.05f, y);
-        glVertex2f(x+0.05f, y-0.2f);
-        glVertex2f(x-0.05f, y-0.2f);
+            glVertex3f(x-0.05f, y, 1.0f);
+            glVertex3f(x+0.05f, y, 1.0f);
+            glVertex3f(x+0.05f, y-0.2f, 1.0f);
+            glVertex3f(x-0.05f, y-0.2f, 1.0f);
 
-        glEnd();
+            glEnd();
+        }
+        else
+        {
+            glBegin(GL_POLYGON);
+
+            glEnd();
+        }
     }
     
 };
