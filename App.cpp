@@ -14,7 +14,7 @@ App::App(int argc, char** argv): GlutApp(argc, argv){
 
     for (int i = 0; i < game->shipList.size(); i++)
     {
-        game->shipList[i]->setRate(10);
+        game->shipList[i]->setRate(10); // Set the speed of an enemy ship
         game->shipList[i]->start();
     }
 }
@@ -85,7 +85,7 @@ App::~App(){
     std::cout << "Exiting..." << std::endl;
     // delete explosion;
     // delete fastExplosion;
-    
+
     for (int i = 0; i < game->shipList.size(); i++)
     {
         delete game->shipList[i];
