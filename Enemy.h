@@ -12,7 +12,6 @@ using namespace std;
 
 class Enemy: public Rect, public Timer {  // Use AnimatedRect to include pictures
 
- 
     float z;
 
     bool movingDown;

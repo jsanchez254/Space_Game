@@ -21,6 +21,7 @@ class gameScene: public Timer{
     gameScene(){
         // shipList.push_back(new Enemy(-0.9f, 1.0f));
         // shipList.push_back(new Enemy(-0.8f, 1.0f));
+        shipList.push_back(new Enemy(-0.9f, 1.0f));
         shipList.push_back(new Enemy(-0.7f, 1.0f));
         // shipList.push_back(new Enemy(-0.6f, 1.0f));
         shipList.push_back(new Enemy(-0.5f, 1.0f));
@@ -28,12 +29,13 @@ class gameScene: public Timer{
         shipList.push_back(new Enemy(-0.3f, 1.0f));
         // shipList.push_back(new Enemy(-0.2f, 1.0f));
         shipList.push_back(new Enemy(-0.1f, 1.0f));
-        shipList.push_back(new Enemy(0.0f, 1.0f));
+        // shipList.push_back(new Enemy(0.0f, 1.0f));
         shipList.push_back(new Enemy(0.1f, 1.0f));
         shipList.push_back(new Enemy(0.3f, 1.0f));
         shipList.push_back(new Enemy(0.5f, 1.0f));
         // shipList.push_back(new Enemy(0.6f, 1.0f));
         shipList.push_back(new Enemy(0.7f, 1.0f));
+        shipList.push_back(new Enemy(0.9f, 1.0f));
         // shipList.push_back(new Enemy(0.8f, 1.0f));
         // shipList.push_back(new Enemy(0.9f, 1.0f));
         
