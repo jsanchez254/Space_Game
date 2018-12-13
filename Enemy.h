@@ -8,6 +8,9 @@
 #include <vector>
 #include "Timer.h"
 
+#include <SOIL.h>
+
+
 using namespace std;
 
 class Enemy: public Rect, public Timer {  // Use AnimatedRect to include pictures
@@ -20,6 +23,7 @@ public:
     float y;
     float x;
     bool die = true;
+    GLuint texture_id;
 
     // Default Constructor
     Enemy(): x(0.0f), z(1.0f) {
@@ -30,6 +34,22 @@ public:
     Enemy(float x, float z): x(x), z(z) {
         y = 1.5f;
         this->movingDown = true;
+            glClearColor (0.0, 0.0, 0.0, 0.0);
+                glShadeModel(GL_FLAT);
+                glEnable(GL_DEPTH_TEST);
+                
+                texture_id = SOIL_load_OGL_texture (
+                                            "alien1.png",
+                                            SOIL_LOAD_AUTO,
+                                            SOIL_CREATE_NEW_ID,
+                                            SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+                                            );
+                
+                if(0 == texture_id){
+                    std::cout <<"SOIL loading error: " << SOIL_last_result() << std::endl;
+        
+                }
+
     }
 
     ~Enemy(){
@@ -60,16 +80,25 @@ public:
 
         if (movingDown && die)
         {
-            glColor3d(1.0f, 1.0f, 1.0f);
 
-            glBegin(GL_POLYGON);
+              glBindTexture( GL_TEXTURE_2D, texture_id );
+                glEnable(GL_TEXTURE_2D);
+                glBegin(GL_QUADS);
+            // glColor3d(1.0f, 1.0f, 1.0f);
 
+            glTexCoord2f(0, 1);
             glVertex3f(x-0.05f, y, 1.0f);
+            glTexCoord2f(1, 1);
             glVertex3f(x+0.05f, y, 1.0f);
+            glTexCoord2f(1, 0);
             glVertex3f(x+0.05f, y-0.2f, 1.0f);
+            glTexCoord2f(0, 0);
             glVertex3f(x-0.05f, y-0.2f, 1.0f);
 
             glEnd();
+
+
+        
         }
         else
         {

@@ -22,16 +22,22 @@ App::App(int argc, char** argv): GlutApp(argc, argv){
 void App::draw() {
     // explosion->draw(0.15);
     // fastExplosion->draw(0.15);
-    for (int i = 0; i < game->shipList.size(); i++)
-    {
-        game->shipList[i]->draw();
+    if(game->arwing->endGame){
+        for (int i = 0; i < game->shipList.size(); i++)
+        {
+            game->shipList[i]->draw();
+        }
     }
     game->arwing->draw();
     background->draw(0.0);
-    if(shoot){
+    if(shoot && game->arwing->endGame){
         for(int i = 0; i < game->arwing->weapon.size(); i++){
             game->arwing->weapon[i]->draw();
         }
+    }
+
+    if(!game->arwing->endGame){
+        game->draw();
     }
 }
 
@@ -45,6 +51,7 @@ void App::keyDown(unsigned char key, float x, float y){
     //UP
     if(key == 115){
         game->arwing->positionManage("UP");
+        // glutIdleFunc(game->arwing->positionManage("UP")); 
         redraw();
     }
     //RIGHT

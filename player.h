@@ -1,9 +1,19 @@
+#ifndef player_h
+#define player_h
+
 #include "bullets.h"
+#include <SOIL.h>
 
 class player{
     public:
     
+        GLuint texture_id;
+
+        bool endGame = true;
+    
+
         bool shoot = false;
+        bool die =true;
         vector <bullets*> weapon;
         float positionY1 = -0.6f;
         float positionY2 = -0.8f;
@@ -11,7 +21,27 @@ class player{
         float positionX2 = 0.1f;
 
         player(){
-            cout<<"default me"<<endl;
+            glClearColor (0.0, 0.0, 0.0, 0.0);
+            glShadeModel(GL_FLAT);
+            glEnable(GL_DEPTH_TEST);
+            
+            texture_id = SOIL_load_OGL_texture (
+                                        "destroyer.png",
+                                        SOIL_LOAD_AUTO,
+                                        SOIL_CREATE_NEW_ID,
+                                        SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+                                        );
+            
+            if(0 == texture_id){
+                std::cout <<"SOIL loading error: " << SOIL_last_result() << std::endl;
+            }
+            
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+            
+            glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
         }
 
         //MAKE SURE PLAYER IS WITHIN BOUNDS
@@ -55,16 +85,28 @@ class player{
         }
 
         void draw(){
-            glColor3f(1, 1, 0.2);
-            glBegin(GL_POLYGON);
-            
-            glVertex3f(positionX1, positionY1, 0.16);
-            glVertex3f(positionX2, positionY1, 0.16);
-            glVertex3f(positionX2, positionY2, 0.16);
-            glVertex3f(positionX1, positionY2, 0.16);
-            
-            glEnd();
+            if(die){
+                glBindTexture( GL_TEXTURE_2D, texture_id );
+                glEnable(GL_TEXTURE_2D);
+                glBegin(GL_QUADS);
+                // glColor3f(1, 1, 0.2);
+                // glBegin(GL_POLYGON);
+                
+                 glTexCoord2f(0, 1);
+                glVertex3f(positionX1, positionY1, 0.16);
+                 glTexCoord2f(1, 1);
+                glVertex3f(positionX2, positionY1, 0.16);
+                glTexCoord2f(1, 0);
+                glVertex3f(positionX2, positionY2, 0.16);
+                 glTexCoord2f(0, 0);
+                glVertex3f(positionX1, positionY2, 0.16);
+                
+                glEnd();
+
+            }
 
         }
 
 };
+
+#endif

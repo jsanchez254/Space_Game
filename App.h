@@ -18,31 +18,41 @@ class gameScene: public Timer{
         vector<Enemy*> shipList;
         player* arwing = new player();
         checkHit* check = new checkHit();
+        //indicates game is over
     gameScene(){
-        // shipList.push_back(new Enemy(-0.9f, 1.0f));
-        // shipList.push_back(new Enemy(-0.8f, 1.0f));
         shipList.push_back(new Enemy(-0.9f, 1.0f));
         shipList.push_back(new Enemy(-0.7f, 1.0f));
-        // shipList.push_back(new Enemy(-0.6f, 1.0f));
         shipList.push_back(new Enemy(-0.5f, 1.0f));
-        // shipList.push_back(new Enemy(-0.4f, 1.0f));
         shipList.push_back(new Enemy(-0.3f, 1.0f));
-        // shipList.push_back(new Enemy(-0.2f, 1.0f));
         shipList.push_back(new Enemy(-0.1f, 1.0f));
-        // shipList.push_back(new Enemy(0.0f, 1.0f));
         shipList.push_back(new Enemy(0.1f, 1.0f));
         shipList.push_back(new Enemy(0.3f, 1.0f));
         shipList.push_back(new Enemy(0.5f, 1.0f));
-        // shipList.push_back(new Enemy(0.6f, 1.0f));
         shipList.push_back(new Enemy(0.7f, 1.0f));
         shipList.push_back(new Enemy(0.9f, 1.0f));
-        // shipList.push_back(new Enemy(0.8f, 1.0f));
-        // shipList.push_back(new Enemy(0.9f, 1.0f));
         
     }
 
     void action(){
-        check->ifHit(arwing->weapon, shipList);
+        if(arwing->endGame){
+            check->ifHit(arwing->weapon, shipList, arwing);
+        }
+        else{
+            stop();
+        }
+    }
+
+    //DISPLAY GAME OVER ADD MORE TO IT
+    void draw(){
+            glColor3f(1, 0.0, 0.0);
+            
+            glBegin(GL_POLYGON);
+            glVertex3f(0.2, 0.5, 0.15);
+            glVertex3f(0.5, 0.5, 0.15);
+            glVertex3f(0.5, -0.5, 0.15);
+            glVertex3f(0.2, -0.5, 0.15);
+            
+            glEnd();
     }
 
 };
