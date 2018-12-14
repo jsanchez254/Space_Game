@@ -3,6 +3,7 @@
 
 #include "bullets.h"
 #include <SOIL.h>
+#include <string>
 
 class player{
     public:
@@ -10,10 +11,13 @@ class player{
         GLuint texture_id;
 
         bool endGame = true;
-    
+        //GAME START
+        bool gameStart = true;
 
         bool shoot = false;
         bool die =true;
+        //score of player
+        int score = 0;
         vector <bullets*> weapon;
         float positionY1 = -0.6f;
         float positionY2 = -0.8f;
@@ -21,7 +25,7 @@ class player{
         float positionX2 = 0.1f;
 
         player(){
-            glClearColor (0.0, 0.0, 0.0, 0.0);
+            glClearColor (1.0, 1.0, 1.0, 1.0);
             glShadeModel(GL_FLAT);
             glEnable(GL_DEPTH_TEST);
             
@@ -103,6 +107,19 @@ class player{
                 
                 glEnd();
 
+              
+                 glColor3f(0.7, 0.5, 0.1);
+                glRasterPos3f(0.60f, 0.1f, 0.80f);
+
+                string string2 = to_string(score);
+                string score1 = "SCORE: " + string2;
+
+
+                for(int i = 0; i < score1.length(); i++){
+                    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, score1[i]);
+                }
+
+                glEnd();
             }
 
         }

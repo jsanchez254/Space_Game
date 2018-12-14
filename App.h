@@ -10,6 +10,7 @@
 #include "Enemy.h"
 #include "player.h"
 #include "checkHit.h"
+#include <string>
 
 using namespace std;
 
@@ -47,15 +48,26 @@ class gameScene: public Timer{
 
     //DISPLAY GAME OVER ADD MORE TO IT
     void draw(){
-            glColor3f(1, 0.0, 0.0);
+            // glColor3f(1, 0.0, 0.0);
             
-            glBegin(GL_POLYGON);
-            glVertex3f(0.2, 0.5, 0.15);
-            glVertex3f(0.5, 0.5, 0.15);
-            glVertex3f(0.5, -0.5, 0.15);
-            glVertex3f(0.2, -0.5, 0.15);
+            // glBegin(GL_POLYGON);
+            // glVertex3f(0.2, 0.5, 0.15);
+            // glVertex3f(0.5, 0.5, 0.15);
+            // glVertex3f(0.5, -0.5, 0.15);
+            // glVertex3f(0.2, -0.5, 0.15);
             
-            glEnd();
+            // glEnd();
+            glMatrixMode(GL_MODELVIEW);
+            glLoadIdentity();
+
+            glRasterPos3f(-0.85f, 0.1f, 0.30f);
+            glColor3f(1.0f, 0.0f, 0.0f);
+            string hello  ="GAME OVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\nFINAL SCORE: ";
+            string num  = to_string(arwing->score);
+            hello += num;
+            for(int i = 0; i < hello.length(); i++){
+                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, hello[i]);
+            }
     }
 
 };
@@ -64,6 +76,7 @@ class gameScene: public Timer{
 class App: public GlutApp {
     //position of arwing
     public:
+    void Menu();
     bool shoot = false;
     gameScene * game = new gameScene();
     float y = 0.0f;
