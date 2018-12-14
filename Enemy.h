@@ -20,21 +20,23 @@ class Enemy: public Rect, public Timer {  // Use AnimatedRect to include picture
     bool movingDown;
     
 public:
+    int speed = 10;
+    float moveDownSpeed = 0.002;
     float y;
     float x;
+    bool dieDie = false;
     bool die = true;
+    bool boundaryTouch = false;
     GLuint texture_id;
 
-    // Default Constructor
+    
+
+    //Default Constructor
     Enemy(): x(0.0f), z(1.0f) {
         y = 1.5f;
         this->movingDown = true;
-    }
-    
-    Enemy(float x, float z): x(x), z(z) {
-        y = 1.5f;
-        this->movingDown = true;
-            glClearColor (0.0, 0.0, 0.0, 0.0);
+        this->boundaryTouch = false;
+                glClearColor (0.0, 0.0, 0.0, 0.0);
                 glShadeModel(GL_FLAT);
                 glEnable(GL_DEPTH_TEST);
                 
@@ -50,6 +52,43 @@ public:
         
                 }
 
+                glEnable(GL_BLEND);
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+            
+                glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+    }
+    
+    Enemy(float x, float z): x(x), z(z) {
+        y = 1.5f;
+        this->movingDown = true;
+        this->boundaryTouch = false;
+            // glClearColor (0.0, 0.0, 0.0, 0.0);
+            // glShadeModel(GL_FLAT);
+            // glEnable(GL_DEPTH_TEST);
+    
+            // texture_id = SOIL_load_OGL_texture (
+            //                             "bomb.png",
+            //                             SOIL_LOAD_AUTO,
+            //                             SOIL_CREATE_NEW_ID,
+            //                             SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+            //                             );
+    
+            // if(0 == texture_id){
+            //     std::cout <<"SOIL loading error: " << SOIL_last_result() << std::endl;
+            // }
+
+    
+            // glEnable(GL_BLEND);
+            // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                
+            // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+                
+            // glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+            
+
     }
 
     ~Enemy(){
@@ -64,13 +103,14 @@ public:
    
    void action()
    {
-        if (y > -0.6f && die)
+        if (y > -1.5f && die)
         {
-            y -= 0.001f;
+            y -= moveDownSpeed;
             glutPostRedisplay();
         }
 
         else{
+            dieDie = true;
             stop();
         }
 
@@ -97,7 +137,7 @@ public:
 
             glEnd();
 
-
+        glDisable(GL_TEXTURE_2D);
         
         }
         else

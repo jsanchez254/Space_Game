@@ -11,6 +11,7 @@
 #include "player.h"
 #include "checkHit.h"
 #include <string>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -20,6 +21,8 @@ class gameScene: public Timer{
         vector<Enemy*> shipList;
         player* arwing = new player();
         checkHit* check = new checkHit();
+        int speed = 2;
+        float moveDownSpeed = 0.001;
         //indicates game is over
     gameScene(){
         shipList.push_back(new Enemy(-0.9f, 1.0f));
@@ -38,6 +41,10 @@ class gameScene: public Timer{
     void action(){
         if(arwing->endGame){
             check->ifHit(arwing->weapon, shipList, arwing);
+            if(arwing->createEnemy){
+                callDownEnemy();
+                arwing->createEnemy = false;
+            }
         }
         else{
             stop();
@@ -45,6 +52,83 @@ class gameScene: public Timer{
             cout<<"BULLET COUNT: "<<arwing->weapon.size()<<endl;
         }
     }
+
+    float RandomX()
+    {
+        /*
+        float random = ((float)rand()) / (float)RAND_MAX;
+        float diff = b - a;
+        float result = random * diff;
+
+        return a + result;
+        */
+
+        
+        float x;
+        int i = rand() % 10;
+        
+        if (i == 0)
+        {
+            x = -0.9;
+        }
+        else if (i == 1)
+        {
+            x = -0.7;
+        }
+        else if (i == 2)
+        {
+            x = -0.5;
+        }
+        else if (i == 3)
+        {
+            x = -0.3;
+        }
+        else if (i == 4)
+        {
+            x = -0.1;
+        }
+        else if (i == 5)
+        {
+            x = 0.1;
+        }
+        else if (i == 6)
+        {
+            x = 0.3;
+        }
+        else if (i == 7)
+        {
+            x = 0.5;
+        }
+        else if (i == 8)
+        {
+            x = 0.7;
+        }
+        else
+        {
+            x = 0.9;
+        }
+
+        return x;
+    }
+
+    void callDownEnemy()
+   {
+        // float x = RandomX();   
+        float x = RandomX();
+        cout<<"I WAS CALLED HERE"<<endl;
+        //shipList.push_back(new Enemy());
+        shipList.push_back(new Enemy(x, 1.0f));
+        shipList[shipList.size()-1]->speed += speed;
+        shipList[shipList.size()-1]-> moveDownSpeed += moveDownSpeed;
+        shipList[shipList.size()-1]->setRate(shipList[shipList.size()-1]->speed);  // Set the speed of an enemy ship
+        shipList[shipList.size()-1]->start();
+        if(speed >= 0.5){
+            speed -= 0.5;
+        }
+        if(moveDownSpeed <= 0.5){
+            moveDownSpeed+=0.00002;
+        }
+   }
 
     //DISPLAY GAME OVER ADD MORE TO IT
     void draw(){
@@ -60,11 +144,11 @@ class gameScene: public Timer{
             glMatrixMode(GL_MODELVIEW);
             glLoadIdentity();
 
-            glRasterPos3f(-0.85f, 0.1f, 0.30f);
+            glRasterPos3f(-0.85f, 0.2f, 0.30f);
             glColor3f(1.0f, 0.0f, 0.0f);
-            string hello  ="GAME OVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\nFINAL SCORE: ";
-            string num  = to_string(arwing->score);
-            hello += num;
+            string hello  ="GAME OVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+            // string num  = to_string(arwing->score);
+            // hello += num;
             for(int i = 0; i < hello.length(); i++){
                 glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, hello[i]);
             }
@@ -91,6 +175,10 @@ public:
     void draw();
     
     void keyDown(unsigned char key, float x, float y);
+
+    void keyUp(unsigned char key, float x, float y);
+
+    void idle();
 
     ~App();
     

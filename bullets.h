@@ -27,15 +27,12 @@ class bullets: public Timer{
             positionX1 = positionX1x + 0.075f;
             positionX2 = positionX2x - 0.075f;
 
-        }
-
-        bullets(){
             glClearColor (0.0, 0.0, 0.0, 0.0);
                 glShadeModel(GL_FLAT);
                 glEnable(GL_DEPTH_TEST);
                 
                 texture_id = SOIL_load_OGL_texture (
-                                            "bullet.png",
+                                            "bomb.png",
                                             SOIL_LOAD_AUTO,
                                             SOIL_CREATE_NEW_ID,
                                             SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
@@ -52,7 +49,33 @@ class bullets: public Timer{
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
             
             glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-        } 
+
+        }
+
+        //bullets(){
+            // glClearColor (0.0, 0.0, 0.0, 0.0);
+            //     glShadeModel(GL_FLAT);
+            //     glEnable(GL_DEPTH_TEST);
+                
+            //     texture_id = SOIL_load_OGL_texture (
+            //                                 "bomb.png",
+            //                                 SOIL_LOAD_AUTO,
+            //                                 SOIL_CREATE_NEW_ID,
+            //                                 SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+            //                                 );
+                
+            //     if(0 == texture_id){
+            //         std::cout <<"SOIL loading error: " << SOIL_last_result() << std::endl;
+        
+            //     }
+                 
+            // glEnable(GL_BLEND);
+            // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            
+            // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+            
+            // glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+       // } 
 
     void action(){
         if(positionY1 < 2.5f && shooting){
@@ -84,13 +107,13 @@ class bullets: public Timer{
             glBegin(GL_QUADS);
             
             
-                glTexCoord2f(0, 1);
+            glTexCoord2f(0, 0);
             glVertex3f(positionX1 , positionY1 + y, 0.15);
-                glTexCoord2f(1, 1);
+            glTexCoord2f(0, 1);
             glVertex3f(positionX2, positionY1 + y, 0.15);
-            glTexCoord2f(1, 0);
+            glTexCoord2f(1, 1);
             glVertex3f(positionX2, positionY2 + y, 0.15);
-                glTexCoord2f(0, 0);
+            glTexCoord2f(1, 0);
             glVertex3f(positionX1 , positionY2 + y, 0.15);
             
             glEnd();

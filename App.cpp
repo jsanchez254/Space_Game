@@ -71,10 +71,12 @@ void App::draw() {
         }
     }
 
+    // Game over
     if(!game->arwing->endGame){
         game->draw();
     }
 
+    // Game Start
     if(game->arwing->gameStart){
              
                  glColor3f(0.7, 0.5, 0.1);
@@ -98,28 +100,31 @@ void App::keyDown(unsigned char key, float x, float y){
     /*ARWING MOVEMENTS*/
     //UP
     if(key == 115){
-        game->arwing->positionManage("UP");
+        game->arwing->moveUp = true;
+        //game->arwing->positionManage("UP");
         // glutIdleFunc(game->arwing->positionManage("UP")); 
-        redraw();
+        //redraw();
     }
     //RIGHT
     if(key == 99){
-        game->arwing->positionManage("RIGHT");
-        redraw();
+        game->arwing->moveRight = true;
+        // game->arwing->positionManage("RIGHT");
+        // redraw();
     }
     //DOWN
     if(key == 120){
-        game->arwing->positionManage("DOWN");
-        redraw();
+        game->arwing->moveDown = true;
+        // game->arwing->positionManage("DOWN");
+        // redraw();
     }
     //LEFT
     if(key == 122){
-        game->arwing->positionManage("LEFT");
-        redraw();
+        game->arwing->moveLeft = true;
+        // game->arwing->positionManage("LEFT");
+        // redraw();
     }
     /*-----------*/
     
-    // Note: The enemies stop as soon as the ship fires; we need to use multithreading to resolve this issue
     if (key == 32){
         shoot = true;
         // for(int i = 0; i < game->arwing->weapon.size(); i++){
@@ -136,20 +141,100 @@ void App::keyDown(unsigned char key, float x, float y){
 
 }
 
+
+void App::keyUp(unsigned char key, float x, float y){
+    
+    if (key == 27){
+        exit(0);
+    }
+
+    /*ARWING MOVEMENTS*/
+    //UP
+    if(key == 115){
+        game->arwing->moveUp = false;
+        // game->arwing->positionManage("UP");
+        // glutIdleFunc(game->arwing->positionManage("UP")); 
+        // redraw();
+    }
+    //RIGHT
+    if(key == 99){
+        game->arwing->moveRight = false;
+        // game->arwing->positionManage("RIGHT");
+        // redraw();
+    }
+    //DOWN
+    if(key == 120){
+        game->arwing->moveDown = false;
+        // game->arwing->positionManage("DOWN");
+        // redraw();
+    }
+    //LEFT
+    if(key == 122){
+        game->arwing->moveLeft = false;
+        // game->arwing->positionManage("LEFT");
+        // redraw();
+    }
+    /*-----------*/
+    
+    // if (key == 32){
+    //     shoot = true;
+    //     // for(int i = 0; i < game->arwing->weapon.size(); i++){
+    //     //     glutIdleFunc(game->arwing->weapon[i]->upbullet);   
+    //     // }
+    //     game->arwing->weapon.push_back(new bullets(game->arwing->positionY1, game->arwing->positionY2, game->arwing->positionX1, game->arwing->positionX2));
+    //     int last = game->arwing->weapon.size() - 1;
+    //     game->arwing->weapon[last]->setRate(1);
+    //     game->arwing->weapon[last]->start();
+
+    // }
+}
+
+void App::idle() {
+    if(game->arwing->moveUp == true)
+    {
+        game->arwing->positionManage("UP");
+        redraw();
+
+    }
+    else if(game->arwing->moveRight == true)
+    {
+        game->arwing->positionManage("RIGHT");
+        redraw();
+    }
+    else if(game->arwing->moveDown == true)
+    {
+        game->arwing->positionManage("DOWN");
+        redraw();
+    }
+    else if(game->arwing->moveLeft == true)
+    {
+        game->arwing->positionManage("LEFT");
+        redraw();
+    }
+}
+    
+
+
 App::~App(){
     std::cout << "Exiting..." << std::endl;
     // delete explosion;
     // delete fastExplosion;
 
+    delete game->arwing;
+    cout << "Player deleted" << endl;
+
     for (int i = 0; i < game->shipList.size(); i++)
     {
         delete game->shipList[i];
+        cout << "Ship " << i << " deleted" << endl;
     }
 
     for(int i = 0; i < game->arwing->weapon.size(); i++){
         delete game->arwing->weapon[i];
+        cout << "Weapon " << i << " deleted" << endl;
     }
 
 
     delete background;
+    cout << "background deleted" << endl;
 }

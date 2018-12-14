@@ -16,7 +16,8 @@ class checkHit{
             cout<<arwing->positionY1<<endl;
         }
 
-        else{
+        else if (enemies.size() != 0){
+
         arwing->gameStart = false;
         int size = weapons.size() - 1;
             vector<Enemy*>::iterator it;
@@ -24,6 +25,11 @@ class checkHit{
 
             for(it = enemies.begin(); it < enemies.end(); it++){  // The upper bound won't die even with the lower bound killed off; find a more efficient way
                 for(it2 = weapons.begin(); it2 < weapons.end(); it2++){
+                     if((*it)->dieDie){
+                         arwing->die = false;
+                        arwing->endGame = false;
+                    }
+                    
                     if((withinBounds((*it2)->positionY1, (*it2)->positionX1, 
                     (*it2)->positionX2, (*it)->x-0.05f, (*it)->x+0.05f, (*it)->y-0.02f ))){
                             (*it2)->shooting = false;
@@ -32,6 +38,7 @@ class checkHit{
                             enemies.erase(it);
                             weapons.erase(it2);   
                             cout<<"TRUE MY FRIEND"<<endl;
+                            arwing->createEnemy = true;
                             arwing->score += 1;
                     }
                     
@@ -45,6 +52,11 @@ class checkHit{
                         arwing->endGame = false;
                 }       
             }
+        }
+
+        else{
+            cout<<"GAME OVER"<<endl;
+            arwing->endGame = false;
         }
     }
 

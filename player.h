@@ -8,6 +8,8 @@
 class player{
     public:
     
+
+        bool createEnemy = false;
         GLuint texture_id;
 
         bool endGame = true;
@@ -16,6 +18,12 @@ class player{
 
         bool shoot = false;
         bool die =true;
+
+        bool moveLeft = false;
+        bool moveRight = false;
+        bool moveUp = false;
+        bool moveDown = false;
+
         //score of player
         int score = 0;
         vector <bullets*> weapon;
@@ -46,6 +54,8 @@ class player{
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
             
             glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+            
         }
 
         //MAKE SURE PLAYER IS WITHIN BOUNDS
@@ -70,25 +80,56 @@ class player{
         //POSITION
         void positionManage(string type){
             if(type == "UP" && checkWithinBox("UP")){
-                if(positionY1 )
-                positionY1 += 0.03f;
-                positionY2 += 0.03f;
+                // moveUp = true;
+                
+                    positionY1 += 0.015f;
+                    positionY2 += 0.015f;
+                
             }
             else if(type == "RIGHT" && checkWithinBox("RIGHT")){
-                positionX1 += 0.03f;
-                positionX2 += 0.03f;
+                // moveRight = true;
+                
+                    positionX1 += 0.015f;
+                    positionX2 += 0.015f;
+                
             }
             else if(type == "DOWN" && checkWithinBox("DOWN")){
-                positionY1 -= 0.03f;
-                positionY2 -= 0.03f;
+                // moveDown = true;
+                
+                    positionY1 -= 0.015f;
+                    positionY2 -= 0.015f;
+                
             }
             else if(type == "LEFT" && checkWithinBox("LEFT")){
-                positionX1 -= 0.03f;
-                positionX2 -= 0.03f;
+                // moveLeft = true;
+                
+                    positionX1 -= 0.015f;
+                    positionX2 -= 0.015f;
+                
             }
         }
 
+        
+
         void draw(){
+            //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    // Set background color to (not) black
+    //glClearColor(1.0, 1.0, 1.0, 0.0);
+                glMatrixMode(GL_MODELVIEW);
+                 glLoadIdentity();
+              
+                 glColor3f(0.7, 0.5, 0.1);
+                glRasterPos3f(0.60f, 0.1f, 0.80f);
+
+                string string2 = to_string(score);
+                string score1 = "SCORE: " + string2;
+
+
+                for(int i = 0; i < score1.length(); i++){
+                    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, score1[i]);
+                }
+            
             if(die){
                 glBindTexture( GL_TEXTURE_2D, texture_id );
                 glEnable(GL_TEXTURE_2D);
@@ -106,18 +147,19 @@ class player{
                 glVertex3f(positionX1, positionY2, 0.16);
                 
                 glEnd();
-
+                // glMatrixMode(GL_MODELVIEW);
+                //  glLoadIdentity();
               
-                 glColor3f(0.7, 0.5, 0.1);
-                glRasterPos3f(0.60f, 0.1f, 0.80f);
+                //  glColor3f(0.7, 0.5, 0.1);
+                // glRasterPos3f(0.60f, 0.1f, 0.80f);
 
-                string string2 = to_string(score);
-                string score1 = "SCORE: " + string2;
+                // string string2 = to_string(score);
+                // string score1 = "SCORE: " + string2;
 
 
-                for(int i = 0; i < score1.length(); i++){
-                    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, score1[i]);
-                }
+                // for(int i = 0; i < score1.length(); i++){
+                //     glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, score1[i]);
+                // }
 
                 glEnd();
             }
