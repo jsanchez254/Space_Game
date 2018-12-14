@@ -10,7 +10,7 @@ class checkHit{
     public: 
     checkHit(){}    // Default Constructor
 
-    void ifHit(vector<bullets*> weapons, vector<Enemy*> enemies, player * arwing){
+    void ifHit(vector<bullets*> &weapons, vector<Enemy*> &enemies, player * arwing){
         if(weapons.empty()){    // Safety to avoid segmentation fault
             //DO NOTHING
             cout<<arwing->positionY1<<endl;
@@ -22,24 +22,39 @@ class checkHit{
         int size = weapons.size() - 1;
             vector<Enemy*>::iterator it;
             vector<bullets*>::iterator it2;
-            for(it = enemies.begin(); it < enemies.end()-5; it++){  // The upper bound won't die even with the lower bound killed off; find a more efficient way
+            // for(it = enemies.begin(); it < enemies.end()-5; it++){  // The upper bound won't die even with the lower bound killed off; find a more efficient way
+            //     for(it2 = weapons.begin(); it2 < weapons.end(); it2++){
+            //         if((withinBounds((*it2)->positionY1, (*it2)->positionX1, 
+            //         (*it2)->positionX2, (*it)->x-0.05f, (*it)->x+0.05f, (*it)->y-0.02f ))){
+            //                 (*it2)->shooting = false;
+            //                 weapons.pop_back(); // Delete the first bullet on the back
+
+            //             if (withinBounds((*it2)->positionY1, (*it2)->positionX1, (*it2)->positionX2, (*it+5)->x-0.05f, (*it+5)->x+0.05f, (*it+5)->y-0.02f ))
+            //             {
+            //                 (*it+5)->die = false;
+            //                 enemies.erase(it);
+            //             }
+            //             else
+            //             {
+            //                 (*it)->die = false;
+            //                 enemies.erase(it);
+            //             }
+                          
+            //         }
+                    
+            //     }
+            // }
+            
+
+            for(it = enemies.begin(); it < enemies.end(); it++){  // The upper bound won't die even with the lower bound killed off; find a more efficient way
                 for(it2 = weapons.begin(); it2 < weapons.end(); it2++){
                     if((withinBounds((*it2)->positionY1, (*it2)->positionX1, 
                     (*it2)->positionX2, (*it)->x-0.05f, (*it)->x+0.05f, (*it)->y-0.02f ))){
                             (*it2)->shooting = false;
-                            weapons.pop_back(); // Delete the first bullet on the back
-
-                        if (withinBounds((*it2)->positionY1, (*it2)->positionX1, (*it2)->positionX2, (*it+5)->x-0.05f, (*it+5)->x+0.05f, (*it+5)->y-0.02f ))
-                        {
-                            (*it+5)->die = false;
-                            enemies.erase(it);
-                        }
-                        else
-                        {
+                            // weapons.pop_back(); // Delete the first bullet on the back
                             (*it)->die = false;
-                            enemies.erase(it);
-                        }
-                          
+                            weapons.erase(it2);   
+                            cout<<"TRUE MY FRIEND"<<endl;
                     }
                     
                 }

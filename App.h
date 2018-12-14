@@ -1,6 +1,7 @@
 #ifndef App_h
 #define App_h
 
+#include <iostream>
 #include "GlutApp.h"
 #include "AnimatedRect.h"
 #include "Rect.h"
@@ -39,6 +40,8 @@ class gameScene: public Timer{
         }
         else{
             stop();
+             cout<<"TRUE MY FRIEND"<<endl;
+            cout<<"BULLET COUNT: "<<arwing->weapon.size()<<endl;
         }
     }
 
